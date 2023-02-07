@@ -3,24 +3,28 @@ package library.book;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import library.author.Author;
 
 @Entity
 public class BookBean {
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private long id;
 
 	private String name;
 	private String ISBN;
-	private Author author;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private Author author;
 	// not mandatory properties
-	private int noOfCopies = 1;
+	private int noOfCopies;
 	private String genre;
 
-	public BookBean(String name, String ISBN, Author author) {
+	public BookBean() {
+
+	}
+
+	public BookBean(String name, String ISBN) {
 		this.name = name;
-		this.author = author;
+//		this.author = author;
 		this.ISBN = ISBN;
 
 	}
@@ -51,8 +55,8 @@ public class BookBean {
 
 	@Override
 	public String toString() {
-		return String.format("ISBN - %s, name - %s, author - %s, genre - %s, number of copies - %d", ISBN, name, author,
-				genre, noOfCopies);
+		return String.format("ISBN - %s, name - %s, author - %s, genre - %s, number of copies - %d", ISBN, name,
+				noOfCopies);
 	}
 
 }

@@ -1,6 +1,16 @@
 package library.author;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Author {
+	@Id
+	@GeneratedValue
+	@Column(name = "auth_id")
+	private Integer id;
 	private String name;
 	private String born;
 
