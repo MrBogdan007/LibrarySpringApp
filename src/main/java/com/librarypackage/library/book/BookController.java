@@ -1,9 +1,11 @@
-package library.book;
+package com.librarypackage.library.book;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,6 +15,13 @@ public class BookController {
 
 	@GetMapping("/library")
 	public List<BookBean> getBooks() {
+
 		return repository.findAll();
+	}
+
+	@PostMapping("/library")
+	public void postBooks(@RequestBody BookBean book) {
+
+		repository.save(book);
 	}
 }
