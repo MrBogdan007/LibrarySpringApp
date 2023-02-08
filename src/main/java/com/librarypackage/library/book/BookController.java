@@ -1,6 +1,9 @@
 package com.librarypackage.library.book;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +11,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.librarypackage.library.genre.Genre;
+import com.librarypackage.library.genre.GenreRepository;
+
 @RestController
 public class BookController {
 	@Autowired
 	private BookRepository repository;
+	@Autowired
+	private GenreRepository genreRepository;
 
 	@GetMapping("/books")
 	public List<BookBean> getBooks() {
@@ -21,7 +29,29 @@ public class BookController {
 
 	@PostMapping("/books")
 	public void postBooks(@RequestBody BookBean book) {
+		Genre genre = genreRepository.findById(UUID.fromString("4962b57d-7e2b-4bed-8551-3b64e5f04a7f")).orElse(null);
+		BookBean newBook = new BookBean(generateISBN(), "Woman", genre);
+		repository.save(newBook);
+	}
 
-		repository.save(book);
+	private static String generateISBN() {
+		BigInteger b = new BigInteger(34, new Random());
+		String s = toString(b);
+		String[] arrOfStr = s.split("");
+		arrOfStr[2] += "-";
+		arrOfStr[4] += "-";
+		arrOfStr[7] += "-";
+		String ISBN = String.join("", arrOfStr);
+		return "978-" + ISBN;
+	}
+
+	@Override
+	public String toString() {
+		return null;
+
+	}
+
+	private static String toString(BigInteger b) {
+		return b.toString();
 	}
 }

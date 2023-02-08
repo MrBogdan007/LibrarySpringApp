@@ -7,15 +7,18 @@ import org.hibernate.annotations.UuidGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Entity
+@Entity(name = "genre")
+@Table(name = "genre")
 public class Genre {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@UuidGenerator
 	private UUID id;
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, name = "genre_name")
 	private String name;
 
 	public Genre() {
@@ -23,6 +26,7 @@ public class Genre {
 	}
 
 	public Genre(UUID id, String name) {
+		super();
 		this.id = id;
 		this.name = name;
 	}

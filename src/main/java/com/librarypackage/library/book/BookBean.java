@@ -1,5 +1,6 @@
 package com.librarypackage.library.book;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Random;
 
@@ -8,15 +9,16 @@ import com.librarypackage.library.genre.Genre;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity(name = "book")
-public class BookBean {
+public class BookBean implements Serializable {
 	@Id
-	@Column(length = 50, name = "ISBN", nullable = false)
-	private String id = generateISBN();
+	@Column(nullable = false, length = 50, name = "ISBN")
+	private String ISBN = generateISBN();
 
-	@Column(nullable = false, columnDefinition = "varchar(255")
+	@Column(nullable = false, unique = true)
 	private String name;
 //	private String ISBN;
 //	@OneToOne(cascade = CascadeType.ALL)
@@ -24,6 +26,7 @@ public class BookBean {
 	// not mandatory properties
 //	private int noOfCopies;
 	@ManyToOne(optional = false)
+	@JoinColumn(name = "genre_id", nullable = false)
 	private Genre genre;
 
 	public BookBean() {
@@ -32,7 +35,7 @@ public class BookBean {
 
 	public BookBean(String id, String name, Genre genre) {
 		super();
-		this.id = id;
+		this.ISBN = id;
 		this.genre = genre;
 		this.name = name;
 
@@ -41,16 +44,16 @@ public class BookBean {
 
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIsbn(String id) {
+		this.ISBN = id;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getId() {
-		return id;
+	public String getIsbn() {
+		return ISBN;
 	}
 
 	public String getName() {
