@@ -13,13 +13,13 @@ public class BookController {
 	@Autowired
 	private BookRepository repository;
 
-	@GetMapping("/library")
+	@GetMapping("/books")
 	public List<BookBean> getBooks() {
 
 		return repository.findAll();
 	}
 
-	@PostMapping("/library")
+	@PostMapping("/books")
 	public void postBooks(@RequestBody BookBean book) {
 
 		repository.save(book);
