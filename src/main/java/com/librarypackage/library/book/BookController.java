@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.librarypackage.library.dto.BookCreationDto;
+import com.librarypackage.library.dto.BookMapper;
 import com.librarypackage.library.genre.Genre;
 import com.librarypackage.library.genre.GenreRepository;
 
@@ -20,6 +22,8 @@ public class BookController {
 	private BookRepository repository;
 	@Autowired
 	private GenreRepository genreRepository;
+	@Autowired
+	private BookMapper mapper;
 
 	@GetMapping("/books")
 	public List<BookBean> getBooks() {
@@ -28,9 +32,11 @@ public class BookController {
 	}
 
 	@PostMapping("/books")
-	public void postBooks(@RequestBody BookBean book) {
-		Genre genre = genreRepository.findById(UUID.fromString("4962b57d-7e2b-4bed-8551-3b64e5f04a7f")).orElse(null);
-		BookBean newBook = new BookBean(generateISBN(), "Woman", genre);
+	public void postBooks(@RequestBody BookCreationDto bookDTO) {
+		UUID genre_id = bookDTO.getGenre_id();
+		String myString = bookDTO.getSome();
+		Genre genre = genreRepository.findById(genre_id).orElse(null);
+		BookBean newBook = mapper.toBook(bookDTO, genre);
 		repository.save(newBook);
 	}
 
