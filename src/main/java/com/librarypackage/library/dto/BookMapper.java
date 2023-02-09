@@ -11,7 +11,9 @@ import com.librarypackage.library.genre.Genre;
 @Component
 public class BookMapper {
 	public BookBean toBook(BookCreationDto book, Genre genre) {
-		return new BookBean(generateISBN(), book.getName(), genre);
+		Random random = new Random();
+		book.setNoOfCopies(random.nextInt(20) + 1);
+		return new BookBean(generateISBN(), book.getName(), genre, book.getNoOfCopies());
 	}
 
 	private static String generateISBN() {

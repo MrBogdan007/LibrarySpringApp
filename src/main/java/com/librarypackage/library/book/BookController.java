@@ -34,7 +34,6 @@ public class BookController {
 	@PostMapping("/books")
 	public void postBooks(@RequestBody BookCreationDto bookDTO) {
 		UUID genre_id = bookDTO.getGenre_id();
-		String myString = bookDTO.getSome();
 		Genre genre = genreRepository.findById(genre_id).orElse(null);
 		BookBean newBook = mapper.toBook(bookDTO, genre);
 		repository.save(newBook);
