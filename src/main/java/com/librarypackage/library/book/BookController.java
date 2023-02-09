@@ -6,8 +6,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +40,15 @@ public class BookController {
 		Genre genre = genreRepository.findById(genre_id).orElse(null);
 		BookBean newBook = mapper.toBook(bookDTO, genre);
 		repository.save(newBook);
+	}
+	
+	@PutMapping("/books/{id}")
+	public void updateBook(@RequestBody BookBean book, @PathVariable String id) { // 
+		repository.save(book);
+	}
+	@DeleteMapping("/books/{id}")
+	public void deleteBook(@PathVariable String id) {
+		repository.deleteById(id);
 	}
 
 	private static String generateISBN() {
