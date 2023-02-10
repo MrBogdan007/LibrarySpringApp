@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.librarypackage.library.dto.BookCreationDto;
 import com.librarypackage.library.dto.BookMapper;
+import com.librarypackage.library.exceptions.CodeExpection;
+import com.librarypackage.library.exceptions.CustomException;
+import com.librarypackage.library.exceptions.DataAccessExceptionClass;
 import com.librarypackage.library.genre.Genre;
 import com.librarypackage.library.genre.GenreRepository;
 
@@ -27,11 +34,16 @@ public class BookController {
 	private GenreRepository genreRepository;
 	@Autowired
 	private BookMapper mapper;
+	private static final Logger log = LoggerFactory.getLogger(BookController.class);
 
 	@GetMapping("/books")
-	public List<BookBean> getBooks() {
+	public List<BookBean> getBooks() throws CodeExpection {
 
-		return repository.findAll();
+		try {
+			return repository.findAll();
+		} catch (Exception ex) {
+			throw new CodeExpection("The library is empty");
+		}
 	}
 
 	@PostMapping("/books")
@@ -41,14 +53,24 @@ public class BookController {
 		BookBean newBook = mapper.toBook(bookDTO, genre);
 		repository.save(newBook);
 	}
-	
+
 	@PutMapping("/books/{id}")
-	public void updateBook(@RequestBody BookBean book, @PathVariable String id) { // 
+	public void updateBook(@RequestBody BookBean book, @PathVariable String id) {
 		repository.save(book);
 	}
+
 	@DeleteMapping("/books/{id}")
-	public void deleteBook(@PathVariable String id) {
-		repository.deleteById(id);
+	public void deleteBook(@PathVariable String id) throws DataAccessExceptionClass, CustomException {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			log.error("Entity not found: {}", e.getMessage());
+			throw new CustomException("Entity not found", e);
+		} catch (DataAccessException e) {
+			log.error("Error while deleting entity: {}", e.getMessage());
+			throw new DataAccessExceptionClass("Error while deleting entity", e);
+		}
+
 	}
 
 	private static String generateISBN() {
