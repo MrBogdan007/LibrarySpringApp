@@ -1,6 +1,7 @@
 package com.librarypackage.library.book;
 
 import java.math.BigInteger;
+import java.security.Principal;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -38,6 +39,12 @@ public class BookController {
 	@Autowired
 	private BookMapper mapper;
 	private static final Logger log = LoggerFactory.getLogger(BookController.class);
+
+	@GetMapping("/")
+	public String home(Principal principal) {
+		return "Hello " + principal.getName();
+
+	}
 
 	@GetMapping("/books")
 	public List<BookBean> getBooks() throws CodeExpection {
