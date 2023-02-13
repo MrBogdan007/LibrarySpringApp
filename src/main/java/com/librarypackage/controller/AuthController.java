@@ -14,10 +14,13 @@ private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
 
 private final TokenService tokenService;
 
+
 public AuthController(TokenService tokenService) {
 	super();
 	this.tokenService = tokenService;
 }
+
+
 @PostMapping("/token")
 public String token(Authentication authentication) {
 	LOG.debug("Token requested for user: {}", authentication.getName());
