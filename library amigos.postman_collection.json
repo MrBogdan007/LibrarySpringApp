@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "8a82b76a-a801-471c-9e26-6c6343f39658",
+		"name": "library amigos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24432982"
+	},
+	"item": [
+		{
+			"name": "/api/v1/auth/authenticate",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"bogdanbrohovetsky@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/auth/register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\": \"bohdan\",\r\n    \"lastname\": \"brokhovetskiy\",\r\n    \"email\": \"bogdanbrohovetsky@gmail.com\",\r\n    \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/library",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoibXJib2dkYW4iLCJleHAiOjE2NzYzMDkzNDYsImlhdCI6MTY3NjMwNTc0Niwic2NvcGUiOiJyZWFkIn0.rQlQFMATA6wlU5nkS9-ZBX1RhpYMlvweWYWVCJTkTYosT-bFANaexp-_ymPcOO2YxevzmMwUYigVS7OKU8gLKaY6XWx95CxYKXBgqfACwCwhnM5NVzTa6xtQshqfRb1543cyWncB3UPnWvCqMMH3MG1bVCzTu0Sh7cqQe4OcI0bHnrcg8X43hMl-8Sy3szeN0UntxWYV7g96Ver2kA4bGgrL8lr2R-Qe-2KHWjFjkkcVvemIwhwKmAgsnPd1C85-qCVXt5Ew4O_D4beBRLjk7yYbluxZ6LzKRLNUJPkI4Y9DdR25ZeIZ6kT99rQPhzkeWPJBWqcDvgsrem3Q3B419w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\" : \"Game of thrones: a Game of Thrones  \",\r\n  \"genre_id\": \"9e7477ca-d25e-4799-b35e-d32c64fe03e1\"\r\n \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/genre",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoibXJib2dkYW4iLCJleHAiOjE2NzYzMDkzNDYsImlhdCI6MTY3NjMwNTc0Niwic2NvcGUiOiJyZWFkIn0.rQlQFMATA6wlU5nkS9-ZBX1RhpYMlvweWYWVCJTkTYosT-bFANaexp-_ymPcOO2YxevzmMwUYigVS7OKU8gLKaY6XWx95CxYKXBgqfACwCwhnM5NVzTa6xtQshqfRb1543cyWncB3UPnWvCqMMH3MG1bVCzTu0Sh7cqQe4OcI0bHnrcg8X43hMl-8Sy3szeN0UntxWYV7g96Ver2kA4bGgrL8lr2R-Qe-2KHWjFjkkcVvemIwhwKmAgsnPd1C85-qCVXt5Ew4O_D4beBRLjk7yYbluxZ6LzKRLNUJPkI4Y9DdR25ZeIZ6kT99rQPhzkeWPJBWqcDvgsrem3Q3B419w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Novel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/genre",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"genre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2dkYW5icm9ob3ZldHNreUBnbWFpbC5jb20iLCJpYXQiOjE2NzY0MTUwNjMsImV4cCI6MTY3NjQxNjUwM30.WOTTj8yeUFQHjrMZ-czaXk4oIbNe-FKbBnCHb460KWI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Game of thrones: a Game of Thrones  \",\r\n        \"noOfCopies\": 10,\r\n        \"genre\": {\r\n            \"id\": \"9e7477ca-d25e-4799-b35e-d32c64fe03e1\",\r\n            \"name\": \"Novel\"\r\n        },\r\n        \"isbn\": \"978-146-79-685-247\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books/978-122-51-239-854",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"978-122-51-239-854"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/books/978-122-51-239-854",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoibXJib2dkYW4iLCJleHAiOjE2NzYzMDkzNDYsImlhdCI6MTY3NjMwNTc0Niwic2NvcGUiOiJyZWFkIn0.rQlQFMATA6wlU5nkS9-ZBX1RhpYMlvweWYWVCJTkTYosT-bFANaexp-_ymPcOO2YxevzmMwUYigVS7OKU8gLKaY6XWx95CxYKXBgqfACwCwhnM5NVzTa6xtQshqfRb1543cyWncB3UPnWvCqMMH3MG1bVCzTu0Sh7cqQe4OcI0bHnrcg8X43hMl-8Sy3szeN0UntxWYV7g96Ver2kA4bGgrL8lr2R-Qe-2KHWjFjkkcVvemIwhwKmAgsnPd1C85-qCVXt5Ew4O_D4beBRLjk7yYbluxZ6LzKRLNUJPkI4Y9DdR25ZeIZ6kT99rQPhzkeWPJBWqcDvgsrem3Q3B419w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books/978-146-79-685-247",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"978-146-79-685-247"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/books",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2dkYW5icm9ob3ZldHNreUBnbWFpbC5jb20iLCJpYXQiOjE2NzY0MTUwNjMsImV4cCI6MTY3NjQxNjUwM30.WOTTj8yeUFQHjrMZ-czaXk4oIbNe-FKbBnCHb460KWI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
