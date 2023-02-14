@@ -39,12 +39,13 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable()).authorizeRequests(auth -> auth
-				.anyRequest().authenticated())
+		http.csrf(csrf -> csrf.disable())
+		.authorizeRequests(auth -> auth
+		.anyRequest().authenticated())
 		.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-				.sessionManagement(session -> session
-						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.httpBasic();
+		.sessionManagement(session -> session
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+		.httpBasic();
 		return http.build();
 	}
 	@Bean
