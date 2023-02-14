@@ -22,7 +22,8 @@ dependencies {
 	
 	//provideRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+	compileOnly 'org.projectlombok:lombok:1.18.26'
+	
 }
 
 tasks.named('test') {
