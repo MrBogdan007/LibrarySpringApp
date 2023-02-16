@@ -3,6 +3,7 @@ package com.librarypackage.library.book;
 import java.math.BigInteger;
 import java.util.Random;
 
+import com.librarypackage.library.author.Author;
 import com.librarypackage.library.genre.Genre;
 
 import jakarta.persistence.Column;
@@ -10,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity(name = "book")
 public class BookBean {
@@ -25,20 +27,29 @@ public class BookBean {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "genre_id", nullable = false)
 	private Genre genre;
+	@OneToMany
+	@JoinColumn(name = "author_id", nullable = false)
+	private Author author;
 
 	public BookBean() {
 
 	}
 
-	public BookBean(String id, String name, Genre genre, Integer number) {
+	public BookBean(String id, String name, Integer number, Genre genre, Author author) {
 		super();
 		this.ISBN = id;
 		this.genre = genre;
 		this.name = name;
 		this.noOfCopies = number;
-//		this.author = author;
-//		this.ISBN = ISBN;
+		this.author = author;
+	}
 
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
 	}
 
 	public void setIsbn(String id) {

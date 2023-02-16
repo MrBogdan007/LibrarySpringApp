@@ -5,15 +5,16 @@ import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
+import com.librarypackage.library.author.Author;
 import com.librarypackage.library.book.BookBean;
 import com.librarypackage.library.genre.Genre;
 
 @Component
 public class BookMapper {
-	public BookBean toBook(BookCreationDto book, Genre genre) {
+	public BookBean toBook(BookCreationDto book, Genre genre, Author author) {
 		Random random = new Random();
 		book.setNoOfCopies(random.nextInt(20) + 1);
-		return new BookBean(generateISBN(), book.getName(), genre, book.getNoOfCopies());
+		return new BookBean(generateISBN(), book.getName(),  book.getNoOfCopies(), genre, author);
 	}
 
 	private static String generateISBN() {

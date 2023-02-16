@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.librarypackage.library.author.Author;
+import com.librarypackage.library.author.AuthorRepository;
 import com.librarypackage.library.dto.BookCreationDto;
 import com.librarypackage.library.dto.BookMapper;
 import com.librarypackage.library.exceptions.CodeExpection;
@@ -34,6 +36,8 @@ public class BookController {
 	private BookRepository repository;
 	@Autowired
 	private GenreRepository genreRepository;
+	@Autowired
+	private AuthorRepository authorRepository;
 	@Autowired
 	private BookMapper mapper;
 	private static final Logger log = LoggerFactory.getLogger(BookController.class);
@@ -55,8 +59,10 @@ public class BookController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public void postBooks(@RequestBody BookCreationDto bookDTO) {
 		UUID genre_id = bookDTO.getGenre_id();
+		UUID author_id = bookDTO.getAuthor_id();
 		Genre genre = genreRepository.findById(genre_id).orElse(null);
-		BookBean newBook = mapper.toBook(bookDTO, genre);
+		Author author = authorRepository.findById(genre_id).orElse(null);
+		BookBean newBook = mapper.toBook(bookDTO, genre, author);
 		repository.save(newBook);
 	}
 
