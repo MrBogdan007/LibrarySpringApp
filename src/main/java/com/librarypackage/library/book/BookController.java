@@ -59,10 +59,12 @@ public class BookController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public void postBooks(@RequestBody BookCreationDto bookDTO) {
 		UUID genre_id = bookDTO.getGenre_id();
-		UUID author_id = bookDTO.getAuthor_id();
+		List<UUID> author_ids = bookDTO.getAuth_id();
+
 		Genre genre = genreRepository.findById(genre_id).orElse(null);
-		Author author = authorRepository.findById(genre_id).orElse(null);
-		BookBean newBook = mapper.toBook(bookDTO, genre, author);
+		List<Author> author = authorRepository.findAllById(author_ids);
+
+		BookBean newBook = mapper.toBook(bookDTO, genre,  author);
 		repository.save(newBook);
 	}
 

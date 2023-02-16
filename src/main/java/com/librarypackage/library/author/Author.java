@@ -2,6 +2,8 @@ package com.librarypackage.library.author;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,13 +14,32 @@ import jakarta.persistence.Id;
 public class Author {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@UuidGenerator
 	@Column(name = "auth_id")
 	private UUID id;
 	private String name;
 	private String born;
 
-	public Author(String name) {
+	//@ManyToOne
+	//@JoinColumn(name = "author_id")
+	//private BookBean book;
+	public Author() {
+
+	}
+
+	public Author(UUID id, String name, String born) {
+		super();
+		this.id = id;
 		this.name = name;
+		this.born = born;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	@Override

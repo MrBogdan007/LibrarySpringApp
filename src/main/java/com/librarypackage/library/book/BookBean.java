@@ -1,11 +1,13 @@
 package com.librarypackage.library.book;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Random;
 
 import com.librarypackage.library.author.Author;
 import com.librarypackage.library.genre.Genre;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,29 +29,35 @@ public class BookBean {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "genre_id", nullable = false)
 	private Genre genre;
-	@OneToMany
-	@JoinColumn(name = "author_id", nullable = false)
-	private Author author;
+
+	@OneToMany( cascade = CascadeType.ALL )
+	@JoinColumn(name = "book_id", referencedColumnName = "ISBN")
+	private List<Author> authors;
 
 	public BookBean() {
 
 	}
 
-	public BookBean(String id, String name, Integer number, Genre genre, Author author) {
+	public BookBean(String id, String name, Integer number, Genre genre,  List<Author> author) {
 		super();
 		this.ISBN = id;
 		this.genre = genre;
 		this.name = name;
 		this.noOfCopies = number;
-		this.author = author;
+		this.authors = author;
+
 	}
 
-	public Author getAuthor() {
-		return author;
+
+
+	public List<Author> getAuthor() {
+		return authors;
 	}
 
-	public void setAuthor(Author author) {
-		this.author = author;
+
+
+	public void setAuthor(List<Author> author) {
+		this.authors = author;
 	}
 
 	public void setIsbn(String id) {

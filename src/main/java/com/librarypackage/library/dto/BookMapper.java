@@ -1,6 +1,7 @@
 package com.librarypackage.library.dto;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import com.librarypackage.library.genre.Genre;
 
 @Component
 public class BookMapper {
-	public BookBean toBook(BookCreationDto book, Genre genre, Author author) {
+	public BookBean toBook(BookCreationDto book, Genre genre, List<Author> author) {
 		Random random = new Random();
 		book.setNoOfCopies(random.nextInt(20) + 1);
 		return new BookBean(generateISBN(), book.getName(),  book.getNoOfCopies(), genre, author);
