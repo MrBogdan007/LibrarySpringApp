@@ -8,10 +8,9 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,7 +50,9 @@ public class BookController {
 		}
 	}
 
+
 	@PostMapping("/books")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void postBooks(@RequestBody BookCreationDto bookDTO) {
 		UUID genre_id = bookDTO.getGenre_id();
 		Genre genre = genreRepository.findById(genre_id).orElse(null);
@@ -60,23 +61,17 @@ public class BookController {
 	}
 
 	@PutMapping("/books/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public void updateBook(@RequestBody BookBean book, @PathVariable String id) {
 		repository.save(book);
 	}
 
 	@DeleteMapping("/books/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Object> deleteBook(@PathVariable String id) throws DataAccessExceptionClass, CustomException {
-		try {
 			repository.deleteById(id);
 			return ResponseEntity.noContent().build();
-		} catch (EmptyResultDataAccessException e) {
-			log.error("Entity not found: {}", e.getMessage());
-			throw new CustomException("Entity not found", e);
-		} catch (DataAccessException e) {
-			log.error("Error while deleting entity: {}", e.getMessage());
-			throw new DataAccessExceptionClass("Error while deleting entity", e);
-		}
 
 	}
 
